@@ -73,9 +73,9 @@ export function ChatInterface() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-zinc-100 items-center overflow-hidden">
-      <div className="flex flex-col flex-1 w-[480px] px-4 py-4 gap-4 overflow-hidden">
-        <h1 className='text-lg border-b pb-2 font-semibold'>Ai Chatbot</h1>
+    <div className="h-screen w-screen flex flex-col p-4 items-center overflow-hidden">
+      <div className="flex flex-col flex-1 bg-zinc-100 rounded-2xl w-[420px] px-2 py-4 gap-4 overflow-hidden">
+        <h1 className='text-md border-b px-4 pb-2 font-semibold'>Ai Chatbot</h1>
         
         <MessageList
           messages={messages}
