@@ -11,25 +11,23 @@ interface MessageListProps {
 export function MessageList({ messages, onDecisionClick, isLoading }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   useEffect(() => {
-    scrollToBottom()
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
   return (
-    <div className="flex-1 flex flex-col overflow-y-auto space-y-4 no-scrollbar">
-      {messages.map((message, index) => (
-        <MessageComponent
-          key={index}
-          message={message}
-          onDecisionClick={onDecisionClick}
-          isLoading={isLoading}
-        />
-      ))}
-      <div ref={messagesEndRef} />
+    <div className="relative flex-1 flex flex-col overflow-y-auto no-scrollbar">
+      <div className="flex-1 flex flex-col space-y-4 p-4">
+        {messages.map((message, index) => (
+          <MessageComponent
+            key={index}
+            message={message}
+            onDecisionClick={onDecisionClick}
+            isLoading={isLoading}
+          />
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
     </div>
   )
 }
