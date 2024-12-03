@@ -4,6 +4,7 @@ import { MessageContent } from './MessageContent'
 import { MessageInfo } from './MessageInfo'
 import { MessageTimestamp } from './MessageTimestamp'
 import { MessageAvatar } from './MessageAvatar'
+import { motion } from 'framer-motion'
 
 interface MessageProps {
   message: MessageType
@@ -15,7 +16,12 @@ export function Message({ message, onDecisionClick, isLoading }: MessageProps) {
   const { sender, content, additionalInfo, availableDecisions, messageId, decisionMade, timestamp, details } = message
 
   return (
-    <div className={`flex ${sender === 'user' ? 'justify-start flex-row-reverse' : 'justify-start flex-row '} bg-red-5000 gap-2`}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className={`flex ${sender === 'user' ? 'justify-start flex-row-reverse' : 'justify-start flex-row '} bg-red-5000 gap-2`}
+    >
       {sender === 'user' && <MessageAvatar sender={sender} />}
       {sender === 'bot' && <MessageAvatar sender={sender} />}
       <div className={`flex flex-col gap-1 ${sender === 'user' && 'items-end'}`}>
@@ -33,6 +39,6 @@ export function Message({ message, onDecisionClick, isLoading }: MessageProps) {
         )}
         <MessageTimestamp timestamp={timestamp} />
       </div>
-    </div>
+    </motion.div>
   )
 }
