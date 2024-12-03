@@ -17,9 +17,9 @@ export function Message({ message, onDecisionClick, isLoading }: MessageProps) {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 50, scale: 0.4 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
       className={`flex ${sender === 'user' ? 'justify-start flex-row-reverse' : 'justify-start flex-row '} bg-red-5000 gap-2`}
     >
       {sender === 'user' && <MessageAvatar sender={sender} />}

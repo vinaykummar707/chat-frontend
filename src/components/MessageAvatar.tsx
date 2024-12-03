@@ -7,8 +7,10 @@ interface MessageAvatarProps {
 export function MessageAvatar({ sender }: MessageAvatarProps) {
   return (
     <Avatar
-    
-      size="26"
+      name={sender === 'user' ? 'Ai I' : 'Bot'}
+      color={sender === 'user' ? 'purple' : 'black'}
+      size="28"
+      style={{fontSize: '25px'}}
       round={true}
     />
   )
