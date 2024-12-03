@@ -1,53 +1,53 @@
-import { useState } from 'react'
-import { apiService } from '../services/api'
-import { Message } from '../types/chat'
-import { MessageList } from './MessageList'
-import { ChatInput } from './ChatInput'
+import { useState } from "react";
+import { apiService } from "../services/api";
+import { Message } from "../types/chat";
+import { MessageList } from "./MessageList";
+import { ChatInput } from "./ChatInput";
 
 export function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>([])
-  const [inputMessage, setInputMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [disableInput, setDisableInput] = useState<boolean>(false)
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputMessage, setInputMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [disableInput, setDisableInput] = useState<boolean>(false);
 
   const handleSendMessage = async (decision?: string, messageId?: number) => {
-    if ((!inputMessage.trim() && !decision) || isLoading) return
+    if ((!inputMessage.trim() && !decision) || isLoading) return;
 
-    const messageToSend = decision || inputMessage
+    const messageToSend = decision || inputMessage;
 
     const newMessage: Message = {
       content: messageToSend,
-      sender: 'user',
-      timestamp: new Date()
-    }
+      sender: "user",
+      timestamp: new Date(),
+    };
 
-    setMessages(prev => {
+    setMessages((prev) => {
       // If this is a decision, mark the corresponding message as decided
       if (decision && messageId !== undefined) {
-        return prev.map(msg => {
+        return prev.map((msg) => {
           if (msg.messageId === messageId) {
-            return { ...msg, decisionMade: true }
+            return { ...msg, decisionMade: true };
           }
-          return msg
-        })
+          return msg;
+        });
       }
-      return prev
-    })
+      return prev;
+    });
 
-    setMessages(prev => [...prev, newMessage])
-    if (!decision) setInputMessage('')
-    setIsLoading(true)
+    setMessages((prev) => [...prev, newMessage]);
+    if (!decision) setInputMessage("");
+    setIsLoading(true);
 
     try {
       const response = await apiService.processPrompt({
         prompt: messageToSend,
         decision: decision,
-        timestamp: new Date().toISOString()
-      })
+        timestamp: new Date().toISOString(),
+      });
 
       const botMessage: Message = {
         content: response.message,
-        sender: 'bot',
+        sender: "bot",
         timestamp: new Date(),
         requiresDecision: response.requires_decision,
         availableDecisions: response.available_decisions,
@@ -55,28 +55,28 @@ export function ChatInterface() {
         additionalInfo: response.additional_info,
         type: response.type,
         data: response.data,
-        messageId: messages.length + 2 // +2 because we've added the user message and this bot message
-      }
-      setDisableInput(response.requires_decision)
+        messageId: messages.length + 2, // +2 because we've added the user message and this bot message
+      };
+      setDisableInput(response.requires_decision);
 
-      setMessages(prev => [...prev, botMessage])
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       const errorMessage: Message = {
-        content: error instanceof Error ? error.message : 'An error occurred',
-        sender: 'bot',
-        timestamp: new Date()
-      }
-      setMessages(prev => [...prev, errorMessage])
+        content: error instanceof Error ? error.message : "An error occurred",
+        sender: "bot",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="h-screen w-screen flex flex-col p-6 items-center overflow-hidden">
-      <div className="flex flex-col flex-1 bg-zinc-100 rounded-2xl  w-[400px] px-2 py-4 gap-4 overflow-hidden">
-        <h1 className='text-md border-b px-4 pb-4 font-bold'>Timesheet Bot</h1>
-        
+    <div className="h-screen w-screen flex flex-col p-2 items-center overflow-hidden">
+      <div className="flex flex-col flex-1 bg-stone-100 rounded-2xl  w-[400px] px-4 py-4 gap-4 overflow-hidden">
+        <h1 className="text-md border-b px-4 pb-4 font-semibold">Ai Chatbot</h1>
+
         <MessageList
           messages={messages}
           onDecisionClick={handleSendMessage}
@@ -92,5 +92,5 @@ export function ChatInterface() {
         />
       </div>
     </div>
-  )
+  );
 }

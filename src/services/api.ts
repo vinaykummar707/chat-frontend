@@ -23,29 +23,29 @@ export interface ErrorResponse {
   details?: string;
 }
 
-const API_BASE_URL = 'http://localhost:3000/api'; // Adjust this to match your Python backend URL
+const API_BASE_URL = "http://localhost:8000"; // Adjust this to match your Python backend URL
 
 class ApiService {
   private async handleResponse<T>(response: Response): Promise<T> {
     if (!response.ok) {
       const errorData: ErrorResponse = await response.json();
-      throw new Error(errorData.error || 'An error occurred');
+      throw new Error(errorData.error || "An error occurred");
     }
     return response.json();
   }
 
   async processPrompt(request: PromptRequest): Promise<PromptResponse> {
     try {
-      const response = await fetch(`${API_BASE_URL}/process-prompt`, {
-        method: 'POST',
+      const response = await fetch(`${API_BASE_URL}/interactive-session`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(request),
+        body: JSON.stringify({ ...request, employee_id: 2299 }),
       });
       return this.handleResponse<PromptResponse>(response);
     } catch (error) {
-      console.error('Error processing prompt:', error);
+      console.error("Error processing prompt:", error);
       throw error;
     }
   }

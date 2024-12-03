@@ -1,9 +1,9 @@
-import { MessageDecisions } from "./MessageDecisions"
-import { Card } from './common/Card'
+import { MessageDecisions } from "./MessageDecisions";
+import { Card } from "./common/Card";
 
 interface MessageInfoProps {
-  content: string
-  sender: 'user' | 'bot'
+  content: string;
+  sender: "user" | "bot";
 }
 
 export function MessageInfo({ content, sender }: MessageInfoProps) {
@@ -11,5 +11,5 @@ export function MessageInfo({ content, sender }: MessageInfoProps) {
     <Card variant={sender} maxWidth="sm">
       <p className="text-xs leading-relaxed">{content}</p>
     </Card>
-  )
+  );
 }

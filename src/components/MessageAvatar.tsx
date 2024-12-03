@@ -1,17 +1,17 @@
-import Avatar from 'react-avatar'
+import Avatar from "react-avatar";
 
 interface MessageAvatarProps {
-  sender: 'user' | 'bot'
+  sender: "user" | "bot";
 }
 
 export function MessageAvatar({ sender }: MessageAvatarProps) {
   return (
     <Avatar
-      name={sender === 'user' ? 'Ai I' : 'Bot'}
-      color={sender === 'user' ? 'purple' : 'black'}
-      size="28"
-      style={{fontSize: '25px'}}
+      name={sender === "user" ? "P v" : "AI I"}
+      color={sender === "user" ? "purple" : "black"}
       round={true}
+      size="28"
+      className="flex-initial flex-shrink-0"
     />
-  )
+  );
 }
