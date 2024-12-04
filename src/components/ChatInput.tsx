@@ -1,3 +1,5 @@
+import { Send } from "lucide-react";
+
 interface ChatInputProps {
   value: string;
   onChange: (value: string) => void;
@@ -14,7 +16,8 @@ export function ChatInput({
   disabled,
 }: ChatInputProps) {
   return (
-    <div className="flex gap-2 border bg-white p-1.5 rounded-full flex-row w-full items-center">
+    <div className="p-1.5 bg-white border-t">
+    <div className="flex gap-2  bg-white p-1 rounded-full flex-row w-full items-center">
       <input
         placeholder="Your Prompt Here"
         value={value}
@@ -31,10 +34,16 @@ export function ChatInput({
       <button
         onClick={onSend}
         disabled={disabled}
-        className="px-4 h-9 text-xs disabled:opacity-50 outline-none ring-0 focus:outline-none text-xs focus:ring-0 bg-zinc-900 rounded-full text-white"
+        className="px-4 h-9 text-xs disabled:opacity-50 outline-none ring-0 focus:outline-none text-xs focus:ring-0 bg-zinc-900 rounded-full text-white flex items-center gap-2"
       >
-        {isLoading ? "Sending..." : "Send"}
+        {isLoading ? "Sending..." : (
+          <>
+            Send
+            <Send size={14} />
+          </>
+        )}
       </button>
+    </div>
     </div>
   );
 }

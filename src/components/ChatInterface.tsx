@@ -3,6 +3,7 @@ import { apiService } from "../services/api";
 import { Message } from "../types/chat";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
+import { X } from "lucide-react";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -73,9 +74,17 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col p-2 items-center overflow-hidden">
-      <div className="flex flex-col flex-1 bg-stone-100 rounded-2xl  w-[400px] px-4 py-4 gap-4 overflow-hidden">
-        <h1 className="text-md border-b px-4 pb-4 font-semibold">Ai Chatbot</h1>
+    <div className="h-screen w-screen bg-gradient-to-r from-purple-300 to-teal-300 flex flex-col p-8 items-center overflow-hidden">
+      <div className="flex flex-col flex-1 bg-neutral-100 rounded-2xl border  shadow-xl  w-[350px] gap-4 overflow-hidden">
+        <div className="flex justify-between bg-white items-center border-b px-3 py-2.5">
+          <h1 className="text-md text-blue-600  font-semibold">AI ChatBot</h1>
+          <button 
+            onClick={() => {}} 
+            className="p-1.5 hover:bg-neutral-300 rounded-full bg-neutral-100 transition-colors"
+          >
+            <X size={18} />
+          </button>
+        </div>
 
         <MessageList
           messages={messages}

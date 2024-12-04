@@ -21,7 +21,7 @@ export function Card({
     <div className={`${maxWidthClasses[maxWidth]} flex flex-col ${className}`}>
       <div
         className={`rounded-lg  px-3 py-2 ${
-          variant === "user" ? "bg-zinc-200" : "bg-white border shadow-sm"
+          variant === "user" ? "bg-neutral-200" : "bg-white border shadow-"
         }`}
       >
         {children}
