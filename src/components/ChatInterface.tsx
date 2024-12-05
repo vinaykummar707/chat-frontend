@@ -3,41 +3,59 @@ import { apiService } from "../services/api";
 import { Message } from "../types/chat";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
-import { X } from "lucide-react";
+import { Moon, Sun, X } from "lucide-react";
+import { useTheme } from "./ThemeProvider";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [disableInput, setDisableInput] = useState<boolean>(false);
+  const { theme, toggleTheme } = useTheme();
 
   const handleSendMessage = async (decision?: string, messageId?: number) => {
     if ((!inputMessage.trim() && !decision) || isLoading) return;
 
     const messageToSend = decision || inputMessage;
 
-    const newMessage: Message = {
-      content: messageToSend,
-      sender: "user",
-      timestamp: new Date(),
-    };
+    if (!decision) {
+      const newMessage: Message = {
+        content: messageToSend,
+        sender: "user",
+        timestamp: new Date(),
+      };
 
-    setMessages((prev) => {
-      // If this is a decision, mark the corresponding message as decided
-      if (decision && messageId !== undefined) {
-        return prev.map((msg) => {
-          if (msg.messageId === messageId) {
-            return { ...msg, decisionMade: true };
-          }
-          return msg;
-        });
-      }
-      return prev;
-    });
+      setMessages((prev) => {
+        // If this is a decision, mark the corresponding message as decided
+        if (decision && messageId !== undefined) {
+          return prev.map((msg) => {
+            if (msg.messageId === messageId) {
+              return { ...msg, decisionMade: true };
+            }
+            return msg;
+          });
+        }
+        return prev;
+      });
 
-    setMessages((prev) => [...prev, newMessage]);
-    if (!decision) setInputMessage("");
-    setIsLoading(true);
+      setMessages((prev) => [...prev, newMessage]);
+      setInputMessage("");
+      setIsLoading(true);
+    } else {
+      setMessages((prev) => {
+        // If this is a decision, mark the corresponding message as decided
+        if (decision && messageId !== undefined) {
+          return prev.map((msg) => {
+            if (msg.messageId === messageId) {
+              return { ...msg, decisionMade: true };
+            }
+            return msg;
+          });
+        }
+        return prev;
+      });
+      setIsLoading(true);
+    }
 
     try {
       const response = await apiService.processPrompt({
@@ -56,6 +74,7 @@ export function ChatInterface() {
         additionalInfo: response.additional_info,
         type: response.type,
         data: response.data,
+        isDataAvailable: response.isDataAvailable,
         messageId: messages.length + 2, // +2 because we've added the user message and this bot message
       };
       setDisableInput(response.requires_decision);
@@ -74,16 +93,36 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-r from-purple-300 to-teal-300 flex flex-col p-8 items-center overflow-hidden">
-      <div className="flex flex-col flex-1 bg-neutral-100 rounded-2xl border  shadow-xl  w-[350px] gap-4 overflow-hidden">
-        <div className="flex justify-between bg-white items-center border-b px-3 py-2.5">
-          <h1 className="text-md text-blue-600  font-semibold">AI ChatBot</h1>
-          <button 
-            onClick={() => {}} 
-            className="p-1.5 hover:bg-neutral-300 rounded-full bg-neutral-100 transition-colors"
-          >
-            <X size={18} />
-          </button>
+    <div className="h-screen w-screen bg-gradient-to-br from-indigo-300 to-pink-400 flex flex-col p-5 items-center overflow-hidden">
+      <div className="flex flex-col flex-1 bg-stone-100 dark:bg-neutral-900 rounded-2xl border dark:border-neutral-700  shadow-xl  w-[380px]  overflow-hidden">
+        <div className="flex justify-between bg-white dark:bg-neutral-800 items-center border-b dark:border-neutral-700 px-4 py-2.5">
+          <h1 className="text-xl dark:text-yellow-300 text-yellow-500  font-semibold">
+            AI
+          </h1>
+          <div className="flex flex-row gap-4">
+            <button
+              onClick={toggleTheme}
+              className=" dark:text-white  rounded-full  dark:bg-neutral-800 transition-colors"
+            >
+              {theme === "dark" ? (
+                <Sun
+                  className="text-neutral-700 dark:text-neutral-50"
+                  size={20}
+                />
+              ) : (
+                <Moon
+                  className="text-neutral-700 dark:text-neutral-50"
+                  size={20}
+                />
+              )}
+            </button>
+            <button
+              onClick={() => {}}
+              className=" dark:text-white  rounded-full  dark:bg-neutral-800 transition-colors"
+            >
+              <X className="text-neutral-700 dark:text-neutral-50" size={20} />
+            </button>
+          </div>
         </div>
 
         <MessageList

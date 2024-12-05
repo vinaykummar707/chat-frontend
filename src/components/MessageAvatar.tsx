@@ -1,3 +1,4 @@
+import { col } from "framer-motion/client";
 import Avatar from "react-avatar";
 
 interface MessageAvatarProps {
@@ -6,12 +7,12 @@ interface MessageAvatarProps {
 
 export function MessageAvatar({ sender }: MessageAvatarProps) {
   return (
-    <Avatar
-      name={sender === "user" ? "P v" : "AI I"}
-      color={sender === "user" ? "purple" : "black"}
-      round={true}
-      size="28"
-      className="flex-initial flex-shrink-0"
-    />
+    <div
+      className={`size-7 flex flex-row justify-center items-center flex-shrink-0 rounded-full  ${
+        sender === "user" ? "bg-lime-200" : "bg-red-200"
+      }`}
+    >
+      <p className="text-[11px] "> {sender === "user" ? "PV" : "AI"} </p>
+    </div>
   );
 }

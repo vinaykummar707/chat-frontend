@@ -15,6 +15,7 @@ export interface PromptResponse {
   details?: string;
   available_decisions?: string[];
   additional_info?: string;
+  isDataAvailable: boolean;
 }
 
 export interface ErrorResponse {

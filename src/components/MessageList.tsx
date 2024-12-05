@@ -21,8 +21,8 @@ export function MessageList({
   }, [messages]);
 
   return (
-    <div className="relative flex-1 px-2 flex flex-col overflow-y-auto no-scrollbar">
-      <div className="flex-1 flex flex-col space-y-4 px-4">
+    <div className="relative flex-1  flex flex-col   overflow-y-auto no-scrollbar">
+      <div className="flex-1 gap-4 py-4 px-4 flex flex-col  ">
         {messages.map((message, index) => (
           <MessageComponent
             key={index}

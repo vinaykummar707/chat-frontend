@@ -16,12 +16,13 @@ export function Message({ message, onDecisionClick, isLoading }: MessageProps) {
   const {
     sender,
     content,
-    additionalInfo,
     availableDecisions,
     messageId,
     decisionMade,
     timestamp,
     details,
+    data,
+    isDataAvailable,
   } = message;
 
   return (
@@ -29,21 +30,22 @@ export function Message({ message, onDecisionClick, isLoading }: MessageProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeIn" }}
-      className={`flex ${
+      className={`flex   ${
         sender === "user"
-          ? "justify-start flex-row-reverse"
-          : "justify-start flex-row "
-      } bg-red-5000 gap-2`}
+          ? "flex-row-reverse justify-start items-start  w-[80%] self-end"
+          : "flex-row  w-[90%] self-start"
+      }  gap-2 `}
     >
-      {sender === "user" && <MessageAvatar sender={sender} />}
       {sender === "bot" && <MessageAvatar sender={sender} />}
+      {sender === "user" && <MessageAvatar sender={sender} />}
+
       <div
-        className={`flex flex-col gap-1 ${sender === "user" && "items-end"}`}
+        className={`flex flex-col gap-2 ${
+          sender === "user" ? "items-end" : "items-start"
+        }`}
       >
         {content && <MessageContent content={content} sender={sender} />}
-        {additionalInfo && (
-          <MessageInfo content={additionalInfo} sender={sender} />
-        )}
+        {isDataAvailable && <MessageInfo content={data} sender={sender} />}
         {availableDecisions && availableDecisions.length > 0 && (
           <MessageDecisions
             decisions={availableDecisions}
