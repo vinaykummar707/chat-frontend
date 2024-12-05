@@ -1,6 +1,3 @@
-import { col } from "framer-motion/client";
-import Avatar from "react-avatar";
-
 interface MessageAvatarProps {
   sender: "user" | "bot";
 }

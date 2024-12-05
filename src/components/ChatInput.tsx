@@ -1,4 +1,4 @@
-import { Send, SendHorizonal } from "lucide-react";
+import { SendHorizonal } from "lucide-react";
 
 interface ChatInputProps {
   value: string;

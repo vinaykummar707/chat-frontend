@@ -18,8 +18,8 @@ export function MessageDecisions({
 }: MessageDecisionsProps) {
   return (
     <div className={decisionMade ? "opacity-50" : ""}>
-      <Card>
-        <div className="flex flex-col gap-2">
+      <Card bgColor="dark:border-yellow-600 border-yellow-500 p-3">
+        <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2">
             <span className="text-xs">Decision Pending</span>
           </div>
@@ -38,7 +38,7 @@ export function MessageDecisions({
               if (decision.toLowerCase() === "yes") {
                 buttonText = "Submit Timesheet";
                 buttonStyle =
-                  "bg-zinc-900 dark:bg-white dark:text-black font-semibold text-white";
+                  "bg-neutral-900 dark:bg-white dark:text-black font-semibold text-white";
               } else if (decision.toLowerCase() === "no") {
                 buttonText = "Cancel";
                 buttonStyle =
@@ -50,7 +50,7 @@ export function MessageDecisions({
                   key={idx}
                   onClick={() => onDecisionClick(decision, messageId)}
                   disabled={isLoading || decisionMade}
-                  className={`px-2.5 py-2.5 text-xs border rounded-lg transition-colors disabled:cursor-not-allowed ${buttonStyle}`}
+                  className={`h-10 text-xs border rounded-lg transition-colors disabled:cursor-not-allowed ${buttonStyle}`}
                 >
                   {buttonText}
                 </button>

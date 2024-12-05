@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Message {
   content: string;
   sender: "user" | "bot";
@@ -10,5 +11,5 @@ export interface Message {
   data?: any;
   decisionMade?: boolean;
   messageId?: number;
-  isDataAvailable: boolean;
+  isDataAvailable?: boolean;
 }

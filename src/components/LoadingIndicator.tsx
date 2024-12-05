@@ -1,10 +1,15 @@
+import { motion } from "framer-motion";
 import { Card } from "./common/Card";
 import { MessageAvatar } from "./MessageAvatar";
-import { MessageInfo } from "./MessageInfo";
 
 export function LoadingIndicator() {
   return (
-    <div className="flex self-start flex-row gap-2 ">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeIn", delay: 0.5 }}
+      className="flex self-start flex-row gap-2 "
+    >
       <MessageAvatar sender="bot" />
       <div className="flex flex-col gap-1 items-start">
         <Card variant="bot">
@@ -20,6 +25,6 @@ export function LoadingIndicator() {
           <span className="text-[10px] text-zinc-400">Thinking...</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

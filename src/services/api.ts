@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Types based on your Python backend models
 export interface PromptRequest {
   prompt: string;
@@ -24,7 +25,7 @@ export interface ErrorResponse {
   details?: string;
 }
 
-const API_BASE_URL = "http://localhost:8000"; // Adjust this to match your Python backend URL
+const API_BASE_URL = "http://20.235.33.235:8080"; // Adjust this to match your Python backend URL
 
 class ApiService {
   private async handleResponse<T>(response: Response): Promise<T> {

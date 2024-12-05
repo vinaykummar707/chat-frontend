@@ -22,18 +22,25 @@ export function MessageList({
 
   return (
     <div className="relative flex-1  flex flex-col   overflow-y-auto no-scrollbar">
-      <div className="flex-1 gap-4 py-4 px-4 flex flex-col  ">
-        {messages.map((message, index) => (
-          <MessageComponent
-            key={index}
-            message={message}
-            onDecisionClick={onDecisionClick}
-            isLoading={isLoading}
-          />
-        ))}
-        {isLoading && <LoadingIndicator />}
-        <div ref={messagesEndRef} />
-      </div>
+      {messages.length === 0 && (
+        <div className="flex-1 flex items-center justify-center">
+          <p className="text-neutral-500 text-xs">No Messages Yet</p>
+        </div>
+      )}
+      {messages.length > 0 && (
+        <div className="flex-1 gap-4 py-4 px-4 flex flex-col  ">
+          {messages.map((message, index) => (
+            <MessageComponent
+              key={index}
+              message={message}
+              onDecisionClick={onDecisionClick}
+              isLoading={isLoading}
+            />
+          ))}
+          {isLoading && <LoadingIndicator />}
+          <div ref={messagesEndRef} />
+        </div>
+      )}
     </div>
   );
 }

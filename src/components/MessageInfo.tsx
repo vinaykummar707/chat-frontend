@@ -1,8 +1,5 @@
-import { data } from "framer-motion/client";
-import { MessageDecisions } from "./MessageDecisions";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card } from "./common/Card";
-import { use } from "framer-motion/m";
-import { useEffect, useState } from "react";
 
 interface MessageInfoProps {
   content: any;
@@ -10,15 +7,7 @@ interface MessageInfoProps {
 }
 
 export function MessageInfo({ content, sender }: MessageInfoProps) {
-  const [tableHeaders, setTableHeaders] = useState<string[]>([
-    "Project",
-    "Date",
-    "Hours",
-  ]);
-
-  useEffect(() => {
-    console.log(content);
-  }, []);
+  const tableHeaders = ["Emp_ID", "Project", "Date", "Hours"];
 
   return (
     <Card variant={sender}>
@@ -26,7 +15,10 @@ export function MessageInfo({ content, sender }: MessageInfoProps) {
         <thead className="bg-">
           <tr className="border-b dark:border-neutral-700">
             {tableHeaders.map((header) => (
-              <th className="px-2 py-2.5 dark:text-neutral-100 font-medium text-left">
+              <th
+                key={header}
+                className="px-2 py-2.5 dark:text-neutral-100 font-medium "
+              >
                 {" "}
                 {header}{" "}
               </th>
@@ -34,8 +26,14 @@ export function MessageInfo({ content, sender }: MessageInfoProps) {
           </tr>
         </thead>
         <tbody>
-          {content.map((row) => (
-            <tr className="   border-t dark:border-neutral-700 text-center ">
+          {content.map((row: any) => (
+            <tr
+              key={row.Date}
+              className="  border-t dark:border-neutral-700 text-center "
+            >
+              <td className="px-2  py-2.5 dark:text-neutral-400 text-neutral-500 capitalize">
+                {row.Emp_ID}
+              </td>
               <td className="px-2  py-2.5 dark:text-neutral-400 text-neutral-500 capitalize">
                 {row.Project_Name}
               </td>
