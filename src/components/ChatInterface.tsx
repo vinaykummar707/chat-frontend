@@ -93,8 +93,8 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-indigo-300 to-pink-400 flex flex-col p-5 items-center overflow-hidden">
-      <div className="flex flex-col flex-1 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border dark:border-neutral-700  shadow-xl  w-[400px]  overflow-hidden">
+    <div className="h-screen w-screen bg-gradient-to-br from-indigo-400 to-pink-300 flex flex-col p-5 items-center overflow-hidden">
+      <div className="flex flex-col flex-1 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border dark:border-neutral-700  shadow-xl  w-[380px]  overflow-hidden">
         <div className="flex justify-between bg-white dark:bg-neutral-800 items-center border-b dark:border-neutral-700 px-4 py-2.5">
           <h1 className="text-lg dark:text-yellow-300 text-yellow-500  font-semibold">
             AI

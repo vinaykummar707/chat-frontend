@@ -45,7 +45,10 @@ export function Message({ message, onDecisionClick, isLoading }: MessageProps) {
         }`}
       >
         {content && <MessageContent content={content} sender={sender} />}
-        {isDataAvailable && <MessageInfo content={data} sender={sender} />}
+        {isDataAvailable &&
+          (data.length > 0 || Object.keys(data).length > 0) && (
+            <MessageInfo content={data} sender={sender} />
+          )}
         {availableDecisions && availableDecisions.length > 0 && (
           <MessageDecisions
             decisions={availableDecisions}

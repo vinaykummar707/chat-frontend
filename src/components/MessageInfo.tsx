@@ -7,7 +7,7 @@ interface MessageInfoProps {
 }
 
 export function MessageInfo({ content, sender }: MessageInfoProps) {
-  const tableHeaders = ["Emp_ID", "Project", "Date", "Hours"];
+  const tableHeaders = ["Project", "Date", "Hours"];
 
   return (
     <Card variant={sender}>
@@ -17,7 +17,7 @@ export function MessageInfo({ content, sender }: MessageInfoProps) {
             {tableHeaders.map((header) => (
               <th
                 key={header}
-                className="px-2 py-2.5 dark:text-neutral-100 font-medium "
+                className="px-1 py-2.5 dark:text-neutral-100 font-medium "
               >
                 {" "}
                 {header}{" "}
@@ -31,9 +31,6 @@ export function MessageInfo({ content, sender }: MessageInfoProps) {
               key={row.Date}
               className="  border-t dark:border-neutral-700 text-center "
             >
-              <td className="px-2  py-2.5 dark:text-neutral-400 text-neutral-500 capitalize">
-                {row.Emp_ID}
-              </td>
               <td className="px-2  py-2.5 dark:text-neutral-400 text-neutral-500 capitalize">
                 {row.Project_Name}
               </td>
