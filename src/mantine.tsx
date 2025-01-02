@@ -1,8 +1,6 @@
 import {
   ActionIcon,
   AppShell,
-  Burger,
-  Group,
   ScrollArea,
   Skeleton,
 } from "@mantine/core";
