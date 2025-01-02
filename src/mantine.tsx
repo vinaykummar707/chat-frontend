@@ -13,17 +13,10 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from "@mantine/core";
-import {  useDisclosure } from "@mantine/hooks";
-import {
-  Activity,
-  Fingerprint,
-  Gauge,
-  Menu,
-
-  X,
-} from "lucide-react";
+import { useDisclosure } from "@mantine/hooks";
+import { Activity, Fingerprint, Gauge, Menu, X } from "lucide-react";
 import { useState } from "react";
-import {  Moon, Sun } from "solar-icon-set";
+import { Moon, Sun } from "solar-icon-set";
 
 export function NavbarSection() {
   const [opened, { toggle }] = useDisclosure();
@@ -66,7 +59,7 @@ export function NavbarSection() {
       padding="sm"
     >
       <AppShell.Navbar
-        bg={computedColorScheme === "light" ? "gray.1" : "dark.6"}
+        bg={computedColorScheme === "light" ? "gray.1" : "dark.8"}
         p="md"
       >
         <AppShell.Section
@@ -77,7 +70,12 @@ export function NavbarSection() {
           <Text fw={600} size={"xl"}>
             Bluebot
           </Text>
-          <ActionIcon hiddenFrom="md" variant="" size={"lg"} onClick={toggle}>
+          <ActionIcon
+            hiddenFrom="md"
+            variant="light"
+            size={"lg"}
+            onClick={toggle}
+          >
             <X size={24} />
           </ActionIcon>
         </AppShell.Section>
@@ -149,8 +147,8 @@ export function NavbarSection() {
 
         <Box flex={1} p={"md"}></Box>
         <Box
-          w={{ base: 350, sm: 500, lg: 550 }}
-          py={{ base: "xs", sm: "md", lg: "xl" }}
+          w={{ base: 300, sm: 500, lg: 550 }}
+          pb={{ base: "xs", sm: "md", lg: "xl" }}
           c="#fff"
           ta="center"
           mx="auto"
