@@ -1,11 +1,15 @@
 import {
   ActionIcon,
   AppShell,
+  Avatar,
+  Group,
   ScrollArea,
   Skeleton,
+  Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { CloseSquare, Like } from "solar-icon-set";
+import { Menu } from "lucide-react";
+import { CloseCircle } from "solar-icon-set";
 
 export function NavbarSection() {
   const [opened, { toggle }] = useDisclosure();
@@ -15,19 +19,14 @@ export function NavbarSection() {
       navbar={{
         width: 300,
         breakpoint: "md",
-        collapsed: { mobile: !opened },
+        collapsed: { mobile: !opened, desktop: opened },
       }}
       padding="md"
     >
-      {/* <AppShell.Header>
-        <Group h="100%" px="md">
-          <Burger opened={opened} onClick={toggle} size="sm" />
-        </Group>
-      </AppShell.Header> */}
       <AppShell.Navbar p="md">
         <AppShell.Section>
-          <ActionIcon onClick={toggle}>
-            <CloseSquare />
+          <ActionIcon variant="subtle" size={"lg"} onClick={toggle}>
+            <CloseCircle size={24} />
           </ActionIcon>
         </AppShell.Section>
         <AppShell.Section grow my="md" component={ScrollArea}>
@@ -43,9 +42,14 @@ export function NavbarSection() {
         </AppShell.Section>
       </AppShell.Navbar>
       <AppShell.Main>
-        <ActionIcon onClick={toggle}>
-          <Like />
-        </ActionIcon>
+        <Group justify="space-between" w={"100%"}>
+          <ActionIcon variant="subtle" size={"lg"} onClick={toggle}>
+            <Menu size={24} />
+          </ActionIcon>
+          <Avatar variant="filled" color="violet" size={"md"} radius="xl">
+            <Text size="lg">Xl</Text>
+          </Avatar>
+        </Group>
       </AppShell.Main>
     </AppShell>
   );
