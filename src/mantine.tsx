@@ -3,7 +3,6 @@ import {
   AppShell,
   Avatar,
   Box,
-  Flex,
   Group,
   NavLink,
   ScrollArea,
@@ -14,20 +13,17 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from "@mantine/core";
-import { useColorScheme, useDisclosure } from "@mantine/hooks";
+import {  useDisclosure } from "@mantine/hooks";
 import {
   Activity,
   Fingerprint,
   Gauge,
   Menu,
-  PanelLeft,
-  PanelLeftDashed,
-  PanelLeftDashedIcon,
-  PanelLeftOpen,
+
   X,
 } from "lucide-react";
 import { useState } from "react";
-import { CloseCircle, Moon, Sun } from "solar-icon-set";
+import {  Moon, Sun } from "solar-icon-set";
 
 export function NavbarSection() {
   const [opened, { toggle }] = useDisclosure();
