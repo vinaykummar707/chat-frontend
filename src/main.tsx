@@ -7,7 +7,14 @@ import { NavbarSection } from "./mantine";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <MantineProvider theme={{ primaryColor: "violet" }}>
+    <MantineProvider
+      defaultColorScheme="dark"
+      theme={{
+        primaryColor: "violet",
+        fontFamily: "Urbanist,serif",
+        defaultRadius: "lg",
+      }}
+    >
       <NavbarSection />
     </MantineProvider>
   </StrictMode>

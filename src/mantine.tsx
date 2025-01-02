@@ -2,54 +2,170 @@ import {
   ActionIcon,
   AppShell,
   Avatar,
+  Box,
+  Flex,
   Group,
+  NavLink,
   ScrollArea,
   Skeleton,
+  Stack,
   Text,
+  Card,
+  useComputedColorScheme,
+  useMantineColorScheme,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { Menu } from "lucide-react";
-import { CloseCircle } from "solar-icon-set";
+import { useColorScheme, useDisclosure } from "@mantine/hooks";
+import {
+  Activity,
+  Fingerprint,
+  Gauge,
+  Menu,
+  PanelLeft,
+  PanelLeftDashed,
+  PanelLeftDashedIcon,
+  PanelLeftOpen,
+  X,
+} from "lucide-react";
+import { useState } from "react";
+import { CloseCircle, Moon, Sun } from "solar-icon-set";
 
 export function NavbarSection() {
   const [opened, { toggle }] = useDisclosure();
+  const { setColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme("light", {
+    getInitialValueInEffect: true,
+  });
+  const [active, setActive] = useState(0);
+  const data = [
+    {
+      icon: Gauge,
+      label: "Dashboard",
+      description: "Item with description",
+    },
+    {
+      icon: Fingerprint,
+      label: "Security",
+    },
+    { icon: Activity, label: "Activity" },
+  ];
+
+  const items = data.map((item, index) => (
+    <NavLink
+      href="#required-for-focus"
+      key={item.label}
+      active={index === active}
+      label={item.label}
+      leftSection={<item.icon size="1rem" />}
+      onClick={() => setActive(index)}
+    />
+  ));
 
   return (
     <AppShell
       navbar={{
-        width: 300,
+        width: 260,
         breakpoint: "md",
         collapsed: { mobile: !opened, desktop: opened },
       }}
-      padding="md"
+      padding="sm"
     >
-      <AppShell.Navbar p="md">
-        <AppShell.Section>
-          <ActionIcon variant="subtle" size={"lg"} onClick={toggle}>
-            <CloseCircle size={24} />
+      <AppShell.Navbar
+        bg={computedColorScheme === "light" ? "gray.1" : "dark.6"}
+        p="md"
+      >
+        <AppShell.Section
+          component={Group}
+          justify="space-between"
+          align="center"
+        >
+          <Text fw={600} size={"xl"}>
+            Bluebot
+          </Text>
+          <ActionIcon hiddenFrom="md" variant="" size={"lg"} onClick={toggle}>
+            <X size={24} />
           </ActionIcon>
         </AppShell.Section>
-        <AppShell.Section grow my="md" component={ScrollArea}>
-          60 links in a scrollable section
-          {Array(60)
-            .fill(0)
-            .map((_, index) => (
-              <Skeleton key={index} h={28} mt="sm" animate={false} />
-            ))}
+        <AppShell.Section my={"md"}>
+          {items}
+          <Text mt={"md"} size="sm" color="dimmed">
+            Recents
+          </Text>
+          <ScrollArea.Autosize mah={600} mx="auto">
+            {Array(60)
+              .fill(0)
+              .map((_, index) => (
+                <Skeleton
+                  radius={"md"}
+                  key={index}
+                  h={40}
+                  mt="sm"
+                  animate={false}
+                />
+              ))}
+          </ScrollArea.Autosize>
         </AppShell.Section>
-        <AppShell.Section>
+        {/* <AppShell.Section>
           Navbar footer – always at the bottom
-        </AppShell.Section>
+        </AppShell.Section> */}
       </AppShell.Navbar>
-      <AppShell.Main>
+      <AppShell.Main component={Stack}>
         <Group justify="space-between" w={"100%"}>
-          <ActionIcon variant="subtle" size={"lg"} onClick={toggle}>
-            <Menu size={24} />
-          </ActionIcon>
-          <Avatar variant="filled" color="violet" size={"md"} radius="xl">
-            <Text size="lg">Xl</Text>
-          </Avatar>
+          <Group>
+            <ActionIcon
+              variant="light"
+              color="gray"
+              size={"lg"}
+              onClick={toggle}
+            >
+              <Menu size={18} />
+            </ActionIcon>
+            <Text hiddenFrom="lg" fw={600} size={"xl"}>
+              Bluebot
+            </Text>
+          </Group>
+          <Group>
+            <ActionIcon
+              onClick={() =>
+                setColorScheme(
+                  computedColorScheme === "light" ? "dark" : "light"
+                )
+              }
+              variant="transparent"
+              color="gray"
+              size="xl"
+              aria-label="Toggle color scheme"
+            >
+              {computedColorScheme === "light" ? (
+                <Moon size={24} />
+              ) : (
+                <Sun size={24} />
+              )}
+            </ActionIcon>
+            <Avatar
+              src={"https://api.multiavatar.com/girl.svg"}
+              variant="filled"
+              color="violet"
+              size={"md"}
+              radius="xl"
+            ></Avatar>
+          </Group>
         </Group>
+
+        <Box flex={1} p={"md"}></Box>
+        <Box
+          w={{ base: 350, sm: 500, lg: 550 }}
+          py={{ base: "xs", sm: "md", lg: "xl" }}
+          c="#fff"
+          ta="center"
+          mx="auto"
+        >
+          <Card
+            bg={computedColorScheme === "light" ? "gray.1" : "dark.6"}
+            p={"md"}
+          >
+            prompt area
+          </Card>
+        </Box>
       </AppShell.Main>
     </AppShell>
   );
